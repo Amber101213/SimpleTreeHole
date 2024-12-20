@@ -35,6 +35,7 @@ import androidx.compose.runtime.mutableStateOf
 //import androidx.compose.runtime.remember
 import androidx.compose.material.icons.filled.PlayArrow
 import android.media.MediaPlayer
+import androidx.compose.foundation.lazy.LazyColumn
 
 class EchoActivity : ComponentActivity() {
     private lateinit var sharedPreferences: SharedPreferences
@@ -196,88 +197,92 @@ class EchoActivity : ComponentActivity() {
                 }
             },
             content = { paddingValues ->
-                Column(
+                LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(paddingValues)
-                        .padding(16.dp)
                         .background(Color(0xFFE1F5E5)), // 设置整体背景
-                    horizontalAlignment = Alignment.CenterHorizontally, // 确保子组件水平居中
                 ) {
-                    Spacer(modifier = Modifier.height(10.dp))
-                    // 年轮标题部分
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp) // 间距
-                            .padding(horizontal = 16.dp) // 添加左右边距
-                            .background(Color(0xFFF2FCF2))
-                            .wrapContentSize(Alignment.Center) // 确保内容居中
-                    ) {
-                        Text(
-                            text = "岁 月 年 轮",
-                            fontSize = 28.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFF007A6D),
-                            modifier = Modifier.padding(8.dp)
-                        )
+                    item {
+                        Spacer(modifier = Modifier.height(10.dp))
+                        // 年轮标题部分
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 8.dp) // 间距
+                                .padding(horizontal = 16.dp) // 添加左右边距
+                                .background(Color(0xFFF2FCF2))
+                                .wrapContentSize(Alignment.Center) // 确保内容居中
+                        ) {
+                            Text(
+                                text = "岁 月 年 轮",
+                                fontSize = 28.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFF007A6D),
+                                modifier = Modifier.padding(8.dp)
+                            )
+                        }
                     }
 
-                    //Spacer(modifier = Modifier.height(20.dp))
-
-                    // 环形图部分
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp) // 间距
-                            .padding(horizontal = 16.dp) // 添加左右边距
-                            .background(Color(0xFFF2FCF2)) // 设置背景颜色
-                            .padding(16.dp) // 添加内边距
-                            .wrapContentSize(Alignment.Center) // 确保内容居中
-                    ) {
-                        DrawMoodChart(moodsCount)
+                    item {
+                        // 环形图部分
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 8.dp) // 间距
+                                .padding(horizontal = 16.dp) // 添加左右边距
+                                .background(Color(0xFFF2FCF2)) // 设置背景颜色
+                                .padding(16.dp) // 添加内边距
+                                .wrapContentSize(Alignment.Center) // 确保内容居中
+                        ) {
+                            DrawMoodChart(moodsCount)
+                        }
                     }
 
-                    // 心情统计列表部分
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp) // 间距
-                            .padding(horizontal = 16.dp) // 添加左右边距
-                            .background(Color(0xFFF2FCF2)) // 设置背景颜色
-                            .padding(16.dp)
-                            .wrapContentSize(Alignment.Center) // 确保内容居中
-                    ) {
-                        MoodStatisticsList(moodsCount)
+                    item {
+                        // 心情统计列表部分
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 8.dp) // 间距
+                                .padding(horizontal = 16.dp) // 添加左右边距
+                                .background(Color(0xFFF2FCF2)) // 设置背景颜色
+                                .padding(16.dp)
+                                .wrapContentSize(Alignment.Center) // 确保内容居中
+                        ) {
+                            MoodStatisticsList(moodsCount)
+                        }
                     }
 
-                    // 显示数量最多的心情及其颜色
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                            .background(Color(0xFFF2FCF2), shape = MaterialTheme.shapes.medium) // 添加形状
-                            .wrapContentSize(Alignment.Center), // 确保内容在 Column 中居中
-                        horizontalAlignment = Alignment.CenterHorizontally, // 水平居中
-                        verticalArrangement = Arrangement.Center // 垂直居中
-                    ) {
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Text(
-                            text = "你的小树的主色是：",
-                            fontSize = 18.sp,
-                            color = Color(0xFF007A6D), // 使用主题颜色
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.padding(bottom = 8.dp) // 增加底部间距
-                        )
-                        Text(
-                            text = "${maxMood} ❀", // 添加装饰符号
-                            fontSize = 28.sp,
-                            color = moodColor,
-                            fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.padding(vertical = 8.dp) // 增加上下间距
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
+                    item {
+                        // 显示数量最多的心情及其颜色
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp)
+                                .background(Color(0xFFF2FCF2), shape = MaterialTheme.shapes.medium) // 添加形状
+                                .wrapContentSize(Alignment.Center), // 确保内容在 Column 中居中
+                            horizontalAlignment = Alignment.CenterHorizontally, // 水平居中
+                            verticalArrangement = Arrangement.Center // 垂直居中
+                        ) {
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Text(
+                                text = "你的小树的主色是：",
+                                fontSize = 18.sp,
+                                color = Color(0xFF007A6D), // 使用主题颜色
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.padding(bottom = 8.dp) // 增加底部间距
+                            )
+                            Text(
+                                text = "${maxMood} ❀", // 添加装饰符号
+                                fontSize = 28.sp,
+                                color = moodColor,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.padding(vertical = 8.dp) // 增加上下间距
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
                     }
                 }
             }

@@ -1,6 +1,7 @@
 
 package com.example.zyl_241213_1
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -40,6 +41,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.geometry.CornerRadius
 
+
+
 const val MAX_COMMENT_LENGTH = 100 // 定义评论的最大字数
 
 class RecordDetailActivity : ComponentActivity() {
@@ -69,6 +72,7 @@ class RecordDetailActivity : ComponentActivity() {
     fun RecordDetail(record: Record) {
         var commentContent by remember { mutableStateOf("") }
         var showDialog by remember { mutableStateOf(false) } // 控制发布评论弹窗显示的状态
+        var showCommentError by remember { mutableStateOf(false) } // 控制评论超出字数的错误提示
 
         Scaffold(
             topBar = {
@@ -228,8 +232,12 @@ class RecordDetailActivity : ComponentActivity() {
                             TextField(
                                 value = commentContent,
                                 onValueChange = { newText ->
-                                    if (newText.length <= MAX_COMMENT_LENGTH) { // 改为直接检查长度
+                                    if (newText.length <= MAX_COMMENT_LENGTH) {
                                         commentContent = newText
+                                        showCommentError = false // 清空错误提示
+                                    } else {
+                                        showCommentError = true // 超出字符限制
+                                        Toast.makeText(this@RecordDetailActivity, "评论不得超过${MAX_COMMENT_LENGTH}个字符", Toast.LENGTH_SHORT).show()
                                     }
                                 },
                                 label = { Text("在这里留下你的评论...") },
@@ -258,13 +266,28 @@ class RecordDetailActivity : ComponentActivity() {
                                 )
                             }
                         }
-
+// 错误提示               // 错误提示
+                        if (showCommentError) {
+                            Box(modifier = Modifier.fillMaxWidth()) { // 使用Box作为容器
+                                Text(
+                                    text = "评论不能超过${MAX_COMMENT_LENGTH}个字！",
+                                    style = TextStyle(fontSize = 12.sp, color = Color.Red),
+                                    modifier = Modifier.align(Alignment.CenterEnd) // 在Box中对齐
+                                )
+                            }
+                        }
 
                         Spacer(modifier = Modifier.height(40.dp))
 
                         // 发布评论按钮
                         Button(
-                            onClick = { showDialog = true }, // 显示对话框
+                            onClick = {
+                                if (commentContent.isBlank()) {
+                                    Toast.makeText(this@RecordDetailActivity, "评论不能为空！", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    showDialog = true // 显示对话框
+                                }
+                            },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp),

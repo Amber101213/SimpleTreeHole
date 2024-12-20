@@ -162,11 +162,17 @@ class ConfideActivity : ComponentActivity() {
                     }
 
                     // 内容输入框
+                    var showContentError by remember { mutableStateOf(false) } // 控制内容超出字数的提示
+
                     OutlinedTextField(
                         value = content,
                         onValueChange = { newText ->
-                            if (newText.text.length <= MAX_CONTENT_LENGTH) { // 检查长度
+                            if (newText.text.length <= MAX_CONTENT_LENGTH) {
                                 content = newText
+                                showContentError = false // 清除错误提示
+                            } else {
+                                showContentError = true // 超出字数，设置错误提示为 true
+                                Toast.makeText(this@ConfideActivity, "内容不得超过${MAX_CONTENT_LENGTH}个字符", Toast.LENGTH_SHORT).show()
                             }
                         },
                         label = { Text("请输入内容") },
@@ -186,8 +192,18 @@ class ConfideActivity : ComponentActivity() {
                         style = TextStyle(fontSize = 12.sp, color = Color.Gray),
                         modifier = Modifier.align(Alignment.End) // 右对齐
                     )
+                    // 超出字数提示
+                    if (showContentError) {
+                        Text(
+                            text = "内容不能超过${MAX_CONTENT_LENGTH}个字！",
+                            style = TextStyle(fontSize = 12.sp, color = Color.Red),
+                            modifier = Modifier.align(Alignment.End) // 右对齐
+                        )
+                    }
+
 
                     Spacer(modifier = Modifier.height(16.dp))
+
                     // 按钮行
                     Row(
                         modifier = Modifier
