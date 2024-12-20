@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/treehole1"
+        android:label="小树洞"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ZYL_241213_1"
+        tools:targetApi="31">
+        <activity
+            android:name=".TreeHoleActivity"
+            android:exported="false"
+            android:label="@string/title_activity_tree_hole"
+            android:theme="@style/Theme.ZYL_241213_1" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.ZYL_241213_1">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 添加 LoginRegisterActivity 的注册 -->
+        <activity
+            android:name=".LoginRegisterActivity"
+            android:exported="true"
+            android:label="@string/login_register_activity_label"
+            android:theme="@style/Theme.ZYL_241213_1" />
+
+        <!-- 添加 ConfideActivity 的注册 -->
+        <activity
+            android:name=".ConfideActivity"
+            android:exported="true"
+            android:label="@string/confide_activity_label"
+            android:theme="@style/Theme.ZYL_241213_1" />
+
+        <!-- 注册 ShowRecordActivity -->
+        <activity
+            android:name=".ShowRecordActivity"
+            android:exported="true"
+            android:label="@string/show_record_activity_label"
+            android:theme="@style/Theme.ZYL_241213_1" />
+
+        <!-- 注册 ShowRecordActivity -->
+        <activity
+            android:name=".RecordDetailActivity"
+            android:exported="true"
+            android:label="@string/record_detail_activity_label"
+            android:theme="@style/Theme.ZYL_241213_1" />
+
+        <!-- 注册 ProfileActivity -->
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="true"
+            android:label="@string/profile_activity_label"
+            android:theme="@style/Theme.ZYL_241213_1" />
+
+        <!-- 注册 EchoActivity -->
+        <activity
+            android:name=".EchoActivity"
+            android:exported="true"
+            android:label="@string/echo_activity_label"
+            android:theme="@style/Theme.ZYL_241213_1" />
+
+    </application>
+
+</manifest>

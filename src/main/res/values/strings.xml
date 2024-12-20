@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">小树洞</string>
+    <string name="title_activity_tree_hole">TreeHoleActivity</string>
+    <string name="confide_activity_label">Confide</string>
+    <string name="show_record_activity_label">树洞</string>
+    <string name="record_detail_activity_label">树洞</string>
+    <string name="profile_activity_label">树洞</string>
+    <string name="echo_activity_label">树洞</string>
+
+</resources>
