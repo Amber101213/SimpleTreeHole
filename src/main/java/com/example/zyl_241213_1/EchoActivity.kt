@@ -65,7 +65,14 @@ class EchoActivity : ComponentActivity() {
 
     override fun onBackPressed() { // 用户按下返回键时暂停音乐
         pauseMusic() // 在返回时暂停音乐
-        super.onBackPressed() // 调用父类的方法
+        super.onBackPressed() // 原先的实现，实际上会退出当前 Activity
+        // 修改为跳转到 TreeHoleActivity
+        val intent = Intent(this, TreeHoleActivity::class.java)
+        val username = intent.getStringExtra("username") ?:
+        sharedPreferences.getString(USERNAME_KEY, "默认用户名") ?: "默认用户"
+        intent.putExtra("username", username)
+        startActivity(intent)
+        finish() // 结束当前 Activity 以避免返回
     }
 
     private fun playMusic() {

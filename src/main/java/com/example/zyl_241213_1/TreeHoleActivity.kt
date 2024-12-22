@@ -30,10 +30,15 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.Context
 
+import android.os.Handler
+import android.os.Looper
+import android.widget.Toast
+
 class TreeHoleActivity : ComponentActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private val USERNAME_KEY = "username_key"
     private val PREFS_NAME = "TreeHole_Login_user_Prefs"
+    private var doubleBackToExitPressedOnce = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +50,22 @@ class TreeHoleActivity : ComponentActivity() {
             TreeHoleScreen(username)
         }
     }
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()  // 向上调用父类
+            finishAffinity() // 关闭当前活动及其所有父活动，退出应用
+            return
+        }
+        this.doubleBackToExitPressedOnce = true
+        Toast.makeText(this, "再按一次返回键退出应用", Toast.LENGTH_SHORT).show()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            doubleBackToExitPressedOnce = false
+        }, 2000)
+    }
 }
+
+
 
 @Composable
 fun TreeHoleScreen(username: String) {
